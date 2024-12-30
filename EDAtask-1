@@ -1,0 +1,59 @@
+[1:42 pm, 29/12/2024] Khushi Didi: import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the Iris dataset
+iris = sns.load_dataset('iris')
+
+# Display the first few rows of the dataset
+print(iris.head())
+
+# Display basic statistics
+print(iris.describe())
+
+# Display information about the dataset
+print(iris.info())
+
+# Check for missing values
+print(iris.isnull().sum())
+
+# Set the style of seaborn
+sns.set(style="whitegrid")
+
+# Create histograms for each feature
+iris.hist(bins=15, figsize=(15, 10), layout=(2, 2))
+plt.suptitle('Histograms of Iris Features')
+plt.show()
+
+# Create box plots for each feature
+plt.figure(figsize=(15, 10))
+for i, column in enumerate(iris.columns[:-1]):
+    plt.subplot(2, 2, i + 1)
+    sns.boxplot(x='species', y=column, data=iris)
+    plt.title(f'Box Plot of {column} by Species')
+plt.tight_layout()
+plt.show()
+
+
+# Calculate the correlation matrix
+correlation_matrix = iris.corr()
+
+# Create a heatmap to visualize the correlations
+plt.figure(figsize=(8, 6))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt='.2f')
+plt.title('Correlation Heatmap')
+plt.show()
+
+
+# Create pair plots to visualize relationships
+sns.pairplot(iris, hue='species', markers=["o", "s", "D"])
+plt.suptitle('Pair Plot of Iris Features', y=1.02)
+plt.show()
+
+
+# Create a scatter plot to identify outliers
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=iris, x='sepal_length', y='sepal_width', hue='species', style='species', s=100)
+plt.title('Sepal Length vs Sepal Width')
+plt.show()
